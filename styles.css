@@ -142,3 +142,28 @@ section[id]{scroll-margin-top:64px}
 @media(min-width:640px){.price-grid,.detail-grid{grid-template-columns:1fr 1fr}}
 .qr{margin:10px auto;max-width:260px;text-align:center}.qr img{width:100%;height:auto;border-radius:14px;display:block;background:#fff}
 .qr figcaption{font-size:12px;color:var(--muted);margin-top:4px}.pay-steps{text-align:left;margin:8px 0 0;padding-left:20px;font-size:14px}.pay-steps li{margin:3px 0}
+
+/* ---- Black Gold Edition ---- */
+.bg-edition{background:radial-gradient(ellipse at 50% 0,rgba(212,166,58,.16),transparent 60%);border-top:1px solid var(--line)}
+.bg-edition .eyebrow{margin:4px 0 6px}
+.bg-cover{display:block;width:100%;max-width:900px;margin:0 auto 16px;padding:0;border:1px solid var(--gold);border-radius:22px;overflow:hidden;background:#000;cursor:zoom-in;box-shadow:0 20px 60px -24px rgba(212,166,58,.7)}
+.bg-cover img{width:100%;height:auto;display:block}
+.bg-limited{background:linear-gradient(135deg,#111,#231a0c);margin-bottom:12px}
+.bg-edition .price-grid{margin:14px 0 18px}
+.bg-gallery .card{background:linear-gradient(180deg,#0d0d0d,#17120a);border-color:#3b2f17}
+.bg-gallery .el-badge{background:#111;border:1px solid var(--gold);color:var(--gold2)}
+.mode-h{font-size:18px;margin:0 0 10px;display:flex;align-items:center;gap:8px}
+.ed-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ed-tab{display:flex;align-items:center;gap:10px;padding:8px;border-radius:16px;border:1.5px solid var(--line);background:#140e09;color:var(--cream);cursor:pointer;font:600 15px var(--sans);text-align:left}
+.ed-tab img{width:52px;height:52px;object-fit:cover;object-position:50% 15%;border-radius:12px;display:block}
+.ed-tab span{display:flex;flex-direction:column;line-height:1.25}.ed-tab small{font-weight:400;font-size:11px;color:var(--muted)}
+.ed-tab.active{border-color:var(--gold);background:linear-gradient(180deg,#3a2a10,#1d150b);box-shadow:0 0 0 2px var(--gold)}
+.ed-tab[data-edtab=blackgold].active{background:linear-gradient(180deg,#1b1b1b,#000)}
+.ed-note{margin:10px 0 0;font-size:13px;color:var(--muted)}.ed-note b{color:var(--gold2)}
+.booking.ed-bg .step{background:linear-gradient(180deg,#121212,#0b0b0b);border-color:#3b2f17}
+.booking.ed-bg .nb{background:#0c0c0c}.booking.ed-bg .nb.sel{background:var(--accent);color:#1a1208}
+.ed-badge{width:100%;margin:0 0 6px;font-size:14px;color:var(--muted)}.ed-badge b{color:var(--gold2)}
+.ed-badge.ed-blackgold{display:inline-block;width:auto;background:#000;border:1px solid var(--gold);border-radius:99px;padding:3px 12px}
+.confirm.ed-bg .confirm-card{background:linear-gradient(180deg,#1a1a1a,#0b0b0b)}
+#cEdition .ed-badge{text-align:center}
+.bg-link{display:inline-block;margin-top:10px;padding:8px 16px;border-radius:99px;background:#000;border:1px solid var(--gold);color:var(--gold2);text-decoration:none;font-size:14px;font-weight:600}

@@ -16,6 +16,7 @@
   <nav>
     <a href="#gallery">5 ปาง</a>
     <a href="#pricing">ราคา</a>
+    <a href="#blackgold">สีดำทอง</a>
     <a href="#booking" class="nav-cta">สั่งจอง</a>
     <a href="#lookup">ตรวจสอบการจอง</a>
   </nav>
@@ -39,6 +40,7 @@
         <a href="#booking" class="btn btn-ghost" data-goto="set">จองครบชุด 5 องค์</a>
       </div>
       <p class="price-hint" id="priceHint"></p>
+      <a href="#blackgold" class="bg-link">🖤 ใหม่! สีดำทอง Black Gold Edition — LIMITED 30 SETS →</a>
     </div>
   </section>
 
@@ -50,6 +52,15 @@
   <section id="pricing" class="section">
     <div class="section-head"><span class="orn">❖</span><h2>💰 ราคาพิเศษรอบ PRE-ORDER</h2><p>🐘 ขนาดสูงประมาณ 5 นิ้ว (รวมฐาน)</p></div>
     <div class="price-grid" id="priceGrid"></div>
+  </section>
+
+  <section id="blackgold" class="section bg-edition" hidden>
+    <div class="section-head"><span class="orn">❖</span><p class="eyebrow">NEW · SECOND EDITION</p><h2>🖤 สีดำทอง <span class="gold">Black Gold Edition</span></h2><p>ช้างศึก 5 มหาธาตุ ครบทั้ง 5 ปาง ในโทนดำด้านตัดทอง</p></div>
+    <button class="bg-cover" data-zoom-cover aria-label="ภาพรวม Black Gold Edition"><picture><source srcset="img/bg-cover.webp" type="image/webp"><img src="img/bg-cover.jpg" alt="ช้างศึก 5 มหาธาตุ สีดำทอง Black Gold Edition ครบ 5 ปาง" loading="lazy" width="1200" height="900"></picture></button>
+    <div class="limited bg-limited"><b>🏆 BLACK GOLD — LIMITED 30 SETS</b><span id="bgLimitTxt"></span><span class="remain" id="bgRemain"></span><span class="muted small">* รุ่นสีดำทองไม่ร่วมรายการ Early Bird</span></div>
+    <p class="price-hint" id="bgPriceHint"></p>
+    <div class="price-grid" id="bgPriceGrid"></div>
+    <div class="gallery bg-gallery" id="bgGallery"></div>
   </section>
 
   <section id="details" class="section">
@@ -74,15 +85,24 @@
   </section>
 
   <section id="booking" class="section booking">
-    <div class="section-head"><span class="orn">❖</span><h2>สั่งจอง</h2><p>เลือกหมายเลขประจำองค์ 1–50 · เลขที่มีผู้จองแล้วจะแสดงเป็นสีเทา · อัปเดตอัตโนมัติ</p></div>
+    <div class="section-head"><span class="orn">❖</span><h2>สั่งจอง</h2><p>เลือกรุ่น แล้วเลือกหมายเลขประจำองค์ · เลขที่มีผู้จองแล้วจะแสดงเป็นสีเทา · อัปเดตอัตโนมัติ</p></div>
     <div id="closedNotice" class="notice" hidden>ขณะนี้ปิดรับจองชั่วคราว</div>
+    <div class="step ed-step" id="edTabs">
+      <h3><span class="num">1</span> เลือกรุ่น</h3>
+      <div class="ed-tabs" role="tablist">
+        <button class="ed-tab active" data-edtab="original" role="tab"><picture><source srcset="img/fire.webp" type="image/webp"><img src="img/fire.jpg" alt=""></picture><span>สีต้นฉบับ<small>Original Edition</small></span></button>
+        <button class="ed-tab" data-edtab="blackgold" role="tab"><picture><source srcset="img/bg-fire.webp" type="image/webp"><img src="img/bg-fire.jpg" alt=""></picture><span>สีดำทอง<small>Black Gold Edition</small></span></button>
+      </div>
+      <p class="ed-note" id="edNote"></p>
+    </div>
+    <h3 class="mode-h"><span class="num" id="modeStepNum">2</span> รูปแบบการจอง</h3>
     <div class="mode-tabs" role="tablist">
       <button class="mode-tab active" data-mode="single" role="tab">จองแยกองค์<small id="singlePriceLbl"></small></button>
       <button class="mode-tab" data-mode="set" role="tab">ครบชุด 5 องค์<small id="setPriceLbl"></small></button>
     </div>
 
     <div class="step" id="pangStep">
-      <h3><span class="num">1</span> เลือกปาง</h3>
+      <h3><span class="num" id="pangStepNum">3</span> เลือกปาง</h3>
       <div class="pang-picker" id="pangPicker"></div>
     </div>
     <div class="step" id="setInfo" hidden>
@@ -122,6 +142,7 @@
       <h2>สั่งจองสำเร็จ</h2>
       <p class="muted">เลขที่คำสั่งจองของคุณ</p>
       <p class="order-id" id="cOrderId"></p>
+      <div id="cEdition"></div>
       <p class="eb-badge" id="cEarly" hidden>🎁 EARLY BIRD — คุณได้รับสิทธิ์ของที่ระลึกสุดพิเศษจาก LaZieQ</p>
       <p class="owner-line">ผู้ครอบครอง: <b id="cOwner"></b></p>
       <div id="cItems" class="cart"></div>

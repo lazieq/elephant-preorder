@@ -7,21 +7,21 @@
 <body><header class="topbar"><a class="brand" href="index.html">✦ แอดมิน · LaZieQ · ช้างศึก 5 มหาธาตุ</a></header>
 <div class="adm">
  <form id="pinForm" class="form step"><label>Admin PIN<input name="pin" type="password" inputmode="numeric" required></label><button class="btn btn-gold btn-block">เข้าสู่ระบบ</button><p class="form-err" id="err"></p></form>
- <div id="panel" hidden><div class="filters"><button class="btn btn-sm btn-ghost" data-f="">ทั้งหมด</button><button class="btn btn-sm btn-ghost" data-f="รอชำระมัดจำ">รอมัดจำ</button><button class="btn btn-sm btn-ghost" data-f="ชำระมัดจำแล้ว">มัดจำแล้ว</button><button class="btn btn-sm btn-ghost" data-f="ชำระครบแล้ว">ครบแล้ว</button><button class="btn btn-sm btn-ghost" data-f="ยกเลิก">ยกเลิก</button></div><div id="list"></div></div>
+ <div id="panel" hidden><div class="filters"><button class="btn btn-sm btn-ghost" data-e="">ทุกรุ่น</button><button class="btn btn-sm btn-ghost" data-e="original">สีต้นฉบับ</button><button class="btn btn-sm btn-ghost" data-e="blackgold">สีดำทอง</button></div><div class="filters"><button class="btn btn-sm btn-ghost" data-f="">ทั้งหมด</button><button class="btn btn-sm btn-ghost" data-f="รอชำระมัดจำ">รอมัดจำ</button><button class="btn btn-sm btn-ghost" data-f="ชำระมัดจำแล้ว">มัดจำแล้ว</button><button class="btn btn-sm btn-ghost" data-f="ชำระครบแล้ว">ครบแล้ว</button><button class="btn btn-sm btn-ghost" data-f="ยกเลิก">ยกเลิก</button></div><div id="list"></div></div>
 </div>
 <script src="config.js"></script><script src="api.js"></script>
 <script>
-let PIN='',F='',ORD=[];const $=s=>document.querySelector(s);const esc=s=>String(s??'').replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
+let PIN='',F='',FE='',ORD=[];const $=s=>document.querySelector(s);const esc=s=>String(s??'').replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
 const pn=id=>(PANGS_META.find(p=>p.id===id)||{}).name||id;
 async function load(){const r=await API.post({action:'adminList',pin:PIN});if(!r.ok){$('#err').textContent=r.message;return}
  $('#pinForm').hidden=true;$('#panel').hidden=false;ORD=r.orders;render()}
-function render(){$('#list').innerHTML=ORD.filter(o=>!F||o.status===F).map(o=>`<div class="o"><h4><span>${esc(o.orderId)}</span><span class="status-chip st-${esc(o.status)}" style="margin:0">${esc(o.status)}</span></h4>
+function render(){$('#list').innerHTML=ORD.filter(o=>(!F||o.status===F)&&(!FE||(o.edition||'original')===FE)).map(o=>`<div class="o"><h4><span>${esc(o.orderId)}</span><span class="status-chip st-${esc(o.status)}" style="margin:0">${esc(o.status)}</span></h4>
 <p><b style="color:var(--cream)">${esc(o.name)}</b> · ${esc(o.phone)} ${o.lineId?'· LINE '+esc(o.lineId):''}</p><p>${esc(o.address)}</p>
-<p>${o.mode==='set'?'ทั้งชุด':'เดี่ยว'}: ${o.items.map(i=>esc(pn(i.pang))+' #'+i.number).join(', ')} · <b style="color:var(--gold2)">฿${Number(o.total).toLocaleString()}</b></p>${o.note?`<p>หมายเหตุ: ${esc(o.note)}</p>`:''}
+<p>รุ่น: <b style="color:var(--gold2)">${esc(o.editionName||(o.edition==='blackgold'?'สีดำทอง (Black Gold Edition)':'สีต้นฉบับ (Original Edition)'))}</b></p><p>${o.mode==='set'?'ทั้งชุด':'เดี่ยว'}: ${o.items.map(i=>esc(pn(i.pang))+' #'+i.number).join(', ')} · <b style="color:var(--gold2)">฿${Number(o.total).toLocaleString()}</b></p>${o.note?`<p>หมายเหตุ: ${esc(o.note)}</p>`:''}
 <p>ผู้ครอบครอง: ${esc(o.ownerName)} ${o.earlyBird?'· <b style="color:#ffc27a">🎁 EARLY BIRD</b>':''} · มัดจำ ฿${Number(o.deposit).toLocaleString()} · คงเหลือ ฿${Number(o.remaining).toLocaleString()}</p>
 ${o.status!=='ยกเลิก'?`<div class="acts" style="flex-wrap:wrap">${['รอชำระมัดจำ','ชำระมัดจำแล้ว','ชำระครบแล้ว','ยกเลิก'].filter(x=>x!==o.status).map(x=>`<button class="btn btn-sm ${x==='ยกเลิก'?'btn-ghost':'btn-gold'}" data-id="${esc(o.orderId)}" data-s="${x}">${x==='ยกเลิก'?'ยกเลิก (คืนเลข)':x}</button>`).join('')}</div>`:''}</div>`).join('')||'<p class="muted">ไม่มีรายการ</p>'}
 $('#pinForm').onsubmit=e=>{e.preventDefault();PIN=e.target.pin.value;load()};
 document.addEventListener('click',async e=>{const b=e.target.closest('[data-s]');if(b){if(b.dataset.s==='ยกเลิก'&&!confirm('ยืนยันยกเลิก '+b.dataset.id+' ? เลขจะถูกคืนให้คนอื่นจองได้'))return;
  const r=await API.post({action:'adminUpdate',pin:PIN,orderId:b.dataset.id,status:b.dataset.s});if(!r.ok)alert(r.message);load()}
- const f=e.target.closest('[data-f]');if(f){F=f.dataset.f;render()}});
+ const f=e.target.closest('[data-f]');if(f){F=f.dataset.f;render()}const fe=e.target.closest('[data-e]');if(fe){FE=fe.dataset.e;render()}});
 </script></body></html>
